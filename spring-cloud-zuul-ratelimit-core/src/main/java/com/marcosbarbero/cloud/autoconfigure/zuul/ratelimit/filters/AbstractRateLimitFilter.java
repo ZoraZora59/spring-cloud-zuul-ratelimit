@@ -22,14 +22,15 @@ import com.marcosbarbero.cloud.autoconfigure.zuul.ratelimit.config.properties.Ra
 import com.marcosbarbero.cloud.autoconfigure.zuul.ratelimit.config.properties.RateLimitProperties.Policy.MatchType;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.web.util.UrlPathHelper;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Marcos Barbero
@@ -55,7 +56,7 @@ public abstract class AbstractRateLimitFilter extends ZuulFilter {
     }
 
     protected List<Policy> policy(Route route, HttpServletRequest request) {
-        String routeId = Optional.ofNullable(route).map(Route::getId).orElse(null);
+        String routeId = Optional.ofNullable(route).map(Route::getLocation).orElse(null);
         return properties.getPolicies(routeId).stream()
             .filter(policy -> applyPolicy(request, route, policy))
             .collect(Collectors.toList());
