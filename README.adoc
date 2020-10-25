@@ -3,6 +3,10 @@
 
 :imagesdir: ./assets/images
 
+## 项目须知：
+
+**对于SpringBootVersion低于2.1的环境，根据url对流控规则进行match的过程中会由于serviceId匹配不到导致流控失败，本项目仅针对此问题将RouteId替换为RouteLocation以解决该问题。**
+
 == Overview
 Module to enable rate limit per service in Netflix Zuul.
 
